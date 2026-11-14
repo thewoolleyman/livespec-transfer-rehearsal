@@ -1,0 +1,19 @@
+name: release-please
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - id: app
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+      - uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ steps.app.outputs.token }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json

@@ -1,0 +1,3 @@
+{"name": "livespec-transfer-rehearsal", "owner": {"name": "thewoolleyman"},
+ "plugins": [{"name": "rehearsal-noop", "source": "./plugins/rehearsal-noop",
+              "description": "DISPOSABLE no-op plugin for the org-move transfer rehearsal"}]}
