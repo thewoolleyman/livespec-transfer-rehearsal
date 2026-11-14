@@ -1,0 +1,29 @@
+name: owner-equality
+on:
+  workflow_dispatch:
+    inputs:
+      expected_owner:
+        type: string
+        required: true
+  push:
+    branches: [master]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: workflow_ref starts with <owner>/livespec-transfer-rehearsal/
+        env:
+          EXPECTED: ${{ inputs.expected_owner || github.repository_owner }}
+          REF: ${{ github.workflow_ref }}
+        run: |
+          echo "workflow_ref=$REF expected_owner=$EXPECTED"
+          case "$REF" in "$EXPECTED/livespec-transfer-rehearsal/"*) echo PASS;; *) echo FAIL; exit 1;; esac
+  secrets-probe:
+    runs-on: ubuntu-latest
+    environment: rehearsal-env
+    steps:
+      - env:
+          S1: ${{ secrets.REHEARSAL_SECRET }}
+          S2: ${{ secrets.REHEARSAL_ENV_SECRET }}
+          V1: ${{ vars.REHEARSAL_VAR }}
+        run: echo "secret_len=${#S1} env_secret_len=${#S2} var=$V1"

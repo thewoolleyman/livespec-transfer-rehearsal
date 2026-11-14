@@ -1,0 +1,12 @@
+name: reusable
+on:
+  workflow_call:
+    inputs:
+      caller_tag:
+        type: string
+        required: true
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "reusable resolved for ${{ inputs.caller_tag }} from ${{ github.repository }}"

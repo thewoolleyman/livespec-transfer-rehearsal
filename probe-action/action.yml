@@ -1,0 +1,7 @@
+name: probe-action
+description: Rehearsal composite action (row 1 / retirement leg).
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: echo "probe-action resolved"
